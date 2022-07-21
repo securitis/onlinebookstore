@@ -78,6 +78,15 @@ pipeline {
        }
     }
    
+    stage('Snyk Container') {
+      steps {
+           catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+            sh './snyk container test sebsnyk/juice-shop --file=Dockerfile --sarif-file-output=results-container.sarif'
+           }
+            recordIssues tool: sarif(name: 'Snyk Container', id: 'snyk-container', pattern: 'results-container.sarif')
+           }
+   }
+   
    
    stage ('Build') {
       steps {
