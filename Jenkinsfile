@@ -113,6 +113,7 @@ pipeline {
     stage('Snyk Container') {
       steps {
            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+            sh './snyk auth 3eaa9a42-e266-4bfa-a671-fa1cfe3cbb05'   
             sh './snyk container test sebsnyk/juice-shop --file=Dockerfile --sarif-file-output=results-container.sarif'
            }
             recordIssues tool: sarif(name: 'Snyk Container', id: 'snyk-container', pattern: 'results-container.sarif')
