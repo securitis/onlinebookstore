@@ -1,3 +1,16 @@
+def snykCliBaseName(){
+    if (isUnix()) {
+        def uname = sh script: 'uname', returnStdout: true
+        if (uname.startsWith("Darwin")) {
+            return "snyk-macos"
+        } else {
+            return "snyk-linux"
+        }
+    } else {
+        return "snyk-win.exe"
+    }
+}
+
 pipeline {
   agent any 
      
@@ -78,6 +91,25 @@ pipeline {
        }
     }
    
+         // Install the Snyk CLI by downloading a binary. For more information, check:
+        // https://docs.snyk.io/snyk-cli/install-the-snyk-cli
+        stage('Install snyk CLI') {
+            steps {
+                script {
+                    def basename = snykCliBaseName()
+
+                    if (isUnix()) {
+                        sh("curl -O -s -L https://static.snyk.io/cli/latest/$basename")
+                        sh("curl -O -s -L https://static.snyk.io/cli/latest/${basename}.sha256")
+                        sh("shasum -c ${basename}.sha256")
+                        sh("chmod +x $basename && mv $basename ./snyk")
+                    } else {
+                        throw "Not implemented."
+                    }
+                }
+            }
+        }
+    
     stage('Snyk Container') {
       steps {
            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
