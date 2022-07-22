@@ -101,7 +101,7 @@ pipeline {
                     if (isUnix()) {
                         sh("curl -O -s -L https://static.snyk.io/cli/latest/$basename")
                         sh("curl -O -s -L https://static.snyk.io/cli/latest/${basename}.sha256")
-                        sh("shasum -c ${basename}.sha256")
+                        //sh("shasum -c ${basename}.sha256")
                         sh("chmod +x $basename && mv $basename ./snyk")
                     } else {
                         throw "Not implemented."
