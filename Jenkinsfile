@@ -10,7 +10,7 @@ def snykCliBaseName(){
         return "snyk-win.exe"
     }
 }
-
+    
 pipeline {
   agent any 
      
