@@ -55,7 +55,7 @@ pipeline {
             //sh 'docker run aquasec/trivy:0.18.3 image vulnerables/web-dvwa:latest'
              }
              } 
-  stage ('Snyk Jar Scan') {
+  stage ('Snyk Jar Scann') {
      steps {
               snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', severity: 'high', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/WebGoatPipeline --all-projects --scan-all-unmanaged --detection-depth=4'
              //snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', projectName: 'CICDSelf', severity: 'high', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/SelfCICD'
