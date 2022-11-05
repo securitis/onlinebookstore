@@ -110,7 +110,7 @@ pipeline {
             }
         }
     
-    stage('Snyk Container') {
+ /*   stage('Snyk Container') {
       steps {
            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
             sh './snyk auth 0da82457-fa1a-497f-a81d-71dc8dc0a11a'   
@@ -118,7 +118,7 @@ pipeline {
            }
             recordIssues tool: sarif(name: 'Snyk Container', id: 'snyk-container', pattern: 'results-container.sarif')
            }
-   }
+   } */
    
    
    stage ('Build') {
