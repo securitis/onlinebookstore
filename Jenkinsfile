@@ -132,7 +132,7 @@ pipeline {
     stage ('Deploy') {
      steps {
             sh 'chmod +777  /var/lib/jenkins/workspace/SnykDemo'
-            sh 'sudo cp -r /var/lib/jenkins/workspace/SnykDemo /var/www/SnykDemo/html' 
+            sh 'sudo cp -r /var/lib/jenkins/workspace/SnykDemo /var/www/html/SnykDemo' 
             //sh 'chmod +777 /var/lib/jenkins/workspace/CICD/target/WebApp'
             //sh 'ls /var/www/html'
             //sh 'sudo cp -r /var/lib/jenkins/OWASP-Dependency-Check/reports /var/www/html'
