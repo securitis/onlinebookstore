@@ -12,11 +12,6 @@ pipeline {
          }
     }
     
-    node {
-    withGradle {
-    sh './gradlew build'
-    }
-   }
      stage ('Check-Git-Secrets') {
       steps {
         sh 'rm trufflehog || true'
