@@ -20,7 +20,7 @@ pipeline {
       }
     }
       
-    stage ('Source Composition Analysis') {
+  /*  stage ('Source Composition Analysis') {
       steps {
          sh 'rm owasp* || true'
          sh 'wget "https://raw.githubusercontent.com/cehkunal/webapp/master/owasp-dependency-check.sh" '
@@ -30,7 +30,20 @@ pipeline {
          sh 'sudo cp -r /var/lib/jenkins/OWASP-Dependency-Check/reports /var/lib/jenkins/workspace/VooDoo'
            
       }
-    }
+    }*/
+    
+       stage ('OWASP Dependency-Check Vulnerabilities') {
+            steps {
+                dependencyCheck additionalArguments: ''' 
+                    -o "./" 
+                    -s "./"
+                    -f "ALL" 
+                    --prettyPrint''', odcInstallation: 'dcheck'
+
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                
+            }
+        }   
     
      stage ('SAST') {
       steps {
